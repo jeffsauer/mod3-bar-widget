@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "com.darkhorse-studios.mod3-bar-widget",
+  "name": "Mod3 Solitaire",
+  "version": "1.0.0",
+  "author": "jsauer",
+  "description": "Launch and toggle the Mod3 Solitaire game on a special (scratchpad) workspace, like a dropdown window.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Mod3Widget.qml"
+  },
+  "barWidget": {
+    "displayName": "Mod3 Solitaire",
+    "description": "Show/hide the Mod3 Solitaire game as a dropdown via the special:mod3 scratchpad.",
+    "category": "Games",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "binary": "~/.config/omarchy/plugins/com.darkhorse-studios.mod3-bar-widget/mod3"
+    },
+    "schema": [
+      {
+        "key": "binary",
+        "type": "path",
+        "label": "Game binary path",
+        "description": "Absolute path to the mod3 executable.",
+        "defaultValue": "~/.config/omarchy/plugins/com.darkhorse-studios.mod3-bar-widget/mod3"
+      }
+    ]
+  }
+}
