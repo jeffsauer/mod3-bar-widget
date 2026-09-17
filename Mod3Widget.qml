@@ -6,12 +6,12 @@ import Quickshell.Hyprland
 import qs.Commons
 import qs.Ui
 
-// Mod3 Solitaire bar toggle. Clicking launches the game if it is not running
-// and then shows the special:mod3 scratchpad its window is parked on; click
-// again to hide it. The game is a V/gg app whose Wayland EGL path renders a
-// blank window on this hardware, so launches strip WAYLAND_DISPLAY to force
-// the XWayland backend. The floating window is dynamically resized to 70% of
-// the focused monitor and positioned 10 px below the bar.
+// Mod3 Solitaire bar toggle. Clicking launches the game if it is not running,
+// parks its window on the special:mod3 scratchpad, and shows the scratchpad;
+// click again to hide it. The game is a V/gg app whose Wayland EGL path
+// renders a blank window on this hardware, so launches strip WAYLAND_DISPLAY
+// to force the XWayland backend. The floating window is dynamically resized
+// to 70% of the focused monitor and positioned 10 px below the bar.
 BarWidget {
   id: root
   moduleName: "com.darkhorse-studios.mod3-bar-widget"
@@ -131,6 +131,21 @@ BarWidget {
     dispatchProcess.running = true
   }
 
+  function workspaceName(win) {
+    var ws = win ? win.workspace : null
+    return ws ? String(ws.name || "") : ""
+  }
+
+  // Park the game window on the scratchpad unless it is already there. The
+  // AppImage launches onto the active workspace, so this move is what actually
+  // puts the dropdown on special:mod3; a map-time rule in looknfeel.lua catches
+  // the first frame, but this is the source of truth.
+  function moveToScratchpad(win) {
+    if (!win || !win.address) return
+    if (workspaceName(win) === "special:" + root.special) return
+    root.runDispatch(["hyprctl", "dispatch", 'hl.dsp.window.move({ window = "address:' + win.address + '", workspace = "special:' + root.special + '" })'])
+  }
+
   function toggleSpecial() {
     root.runDispatch(["hyprctl", "dispatch", 'hl.dsp.workspace.toggle_special("' + root.special + '")'])
   }
@@ -211,6 +226,7 @@ BarWidget {
     root.queryClients(function(clients) {
       var win = root.getMod3Client(clients)
       if (win) {
+        root.moveToScratchpad(win)
         root.autoSizeWindow(win)
         root.toggleSpecial()
       } else {
@@ -245,6 +261,10 @@ BarWidget {
         launchPoll.running = false
         launchPoll.attempts = 0
         root.launching = false
+        // Park the fresh window on the scratchpad, then open it. If the
+        // scratchpad somehow was already showing, `shown` is true and the
+        // toggle is skipped.
+        root.moveToScratchpad(win)
         root.autoSizeWindow(win)
         if (!root.shown) root.toggleSpecial()
       } else if (++launchPoll.attempts >= 40) {
