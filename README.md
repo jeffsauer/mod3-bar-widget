@@ -3,7 +3,7 @@
 # mod3-bar-widget
 Omarchy plugin bar widget that drops down and toggles visibility of the [mod3 solitaire game](https://github.com/jeffsauer/mod3_solitaire) using a hyprland scratchpad workspace.
 
-Assumes mod3-solitaire AppImage is located in ~/Applications and is named mod3-solitaire.AppImage
+Assumes mod3-solitaire AppImage is located in ~/Applications and is named Mod3_Solitaire.AppImage
 
 To install, use the following command:
 
