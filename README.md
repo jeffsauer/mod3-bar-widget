@@ -14,7 +14,7 @@ omarchy plugin add https://github.com/jeffsauer/mod3-bar-widget --enable
 To enable a keybinding shortcut to toggle the visibility (e.g. SUPER+ALT+M), simply add the following to .config/hypr/bindings.lua:
 
 ```
-o.bind("SUPER + ALT + M", "TMOG", "omarchy-shell -q com.darkhorse-studios.mod3-bar-widget toggle")
+o.bind("SUPER + ALT + M", "Mod3 Solitairek", "omarchy-shell -q com.darkhorse-studios.mod3-bar-widget toggle")
 ```
 
 Make sure you are not over-riding an existing key binding.
