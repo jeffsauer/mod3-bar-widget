@@ -14,11 +14,21 @@ import qs.Ui
 // the focused monitor and positioned 10 px below the bar.
 BarWidget {
   id: root
-  moduleName: "jsauer.mod3"
+  moduleName: "com.darkhorse-studios.mod3-bar-widget"
 
   readonly property string special: "mod3"
   readonly property string gameTitle: "Mod3 Solitaire"
-  readonly property string gameBinary: root.setting("binary", "~/.config/omarchy/plugins/com.darkhorse-studios.mod3-bar-widget/mod3")
+  readonly property string gameBinary: root.expandHome(root.setting("binary", "~/Applications/Mod3_Solitaire.AppImage"))
+
+  // execArgv passes argv straight to exec as positional parameters, which a
+  // shell never tilde-expands, so a bare "~" in the binary path must be
+  // resolved here before launching.
+  function expandHome(path) {
+    var p = String(path || "")
+    if (p === "~") return Quickshell.env("HOME")
+    if (p.startsWith("~/")) return Quickshell.env("HOME") + p.substring(1)
+    return p
+  }
 
   property bool hasClient: false
   property bool shown: false

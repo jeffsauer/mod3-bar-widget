@@ -18,7 +18,7 @@
     "allowMultiple": false,
     "defaultSection": "right",
     "defaults": {
-      "binary": "~/.config/omarchy/plugins/com.darkhorse-studios.mod3-bar-widget/mod3"
+      "binary": "~/Applications/Mod3_Solitaire.AppImage"
     },
     "schema": [
       {
@@ -26,7 +26,7 @@
         "type": "path",
         "label": "Game binary path",
         "description": "Absolute path to the mod3 executable.",
-        "defaultValue": "~/.config/omarchy/plugins/com.darkhorse-studios.mod3-bar-widget/mod3"
+        "defaultValue": "~/Applications/Mod3_Solitaire.AppImage"
       }
     ]
   }
