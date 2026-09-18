@@ -11,7 +11,7 @@ To install, use the following command:
 omarchy plugin add https://github.com/jeffsauer/mod3-bar-widget --enable
 ```
 
-Also add the following to your ~/.config/hypr/hyprland.lua file:
+Also add the following rule to your ~/.config/hypr/hyprland.lua file, and then do ```hyprctl reload```
 
 ```
 -- Mod3 Solitaire: park the game window on a special (scratchpad) workspace so
